@@ -123,3 +123,22 @@ class SenseHATAnimations:
         O, O, O, O, O, O, O, O,
         ]
         return logo
+
+    def question_mark(self):
+        O = [0, 0, 0]                                                                   # BLACK
+        X = [100, 100, 100]                                                             # WHITE
+        O = [0, 0, 0]                                                                   # BLACK
+        R = [100, 0, 0]                                                                 # RED
+        B = [0, 0, 100]                                                                 # BlUE
+        G = [0, 100, 0]                                                                 # GREEN
+        logo = [
+            O, O, O, X, X, O, O, O,
+            O, O, O, O, O, O, O, O,
+            O, O, O, O, O, O, O, O,
+            R, O, O, O, O, O, O, G,
+            R, O, O, O, O, O, O, G,
+            O, O, O, O, O, O, O, O,
+            O, O, O, O, O, O, O, O,
+            O, O, O, B, B, O, O, O
+        ]
+        return logo
