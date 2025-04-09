@@ -1,6 +1,6 @@
 from sense_hat import SenseHat
 from time import sleep
-from features import SenseHATAnimations
+from features.animations import SenseHATAnimations
 
 
 s = SenseHat()

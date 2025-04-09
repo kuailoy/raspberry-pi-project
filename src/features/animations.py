@@ -11,6 +11,13 @@ red = (255, 0, 0)
 white = (255,255,255)
 nothing = (0,0,0)
 pink = (255,105, 180)
+G = green
+Y = yellow
+B = blue
+R = red
+W = white
+O = nothing
+P = pink
 
 class SenseHATAnimations:
     def __init__(self, sense):
@@ -123,3 +130,31 @@ class SenseHATAnimations:
         O, O, O, O, O, O, O, O,
         ]
         return logo
+    
+    def menu_temperature():
+        logo = [
+        O, O, O, R, R, O, O, O,
+        O, O, O, O, O, O, R, O,
+        O, R, R, R, O, R, O, R,
+        R, O, O, O, R, O, R, O,
+        R, O, O, O, O, O, O, O,
+        R, O, O, O, O, O, O, O,
+        R, O, O, O, R, O, O, O,
+        O, R, R, R, O, O, O, O
+        ]
+        return logo
+    
+    def menu_pressure():
+        logo = [
+        O, B, B, B, B, B, O, O,
+        O, B, O, O, O, O, B, O,
+        O, B, O, O, O, O, B, O,
+        O, B, O, O, O, O, B, O,
+        O, B, B, B, B, B, O, O, 
+        O, B, O, O, O, O, O, O,
+        O, B, O, O, O, O, O, O,
+        O, B, O, B, B, O, O, O
+        ]
+        return logo
+    
+    def menu_
