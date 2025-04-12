@@ -132,7 +132,7 @@ class SenseHATAnimations:
         return logo
     
     #temperature
-    def menu_temperature():
+    def menu_temperature(self):
         logo = [
         O, O, O, R, R, O, O, O,
         O, O, O, O, O, O, R, O,
@@ -146,7 +146,7 @@ class SenseHATAnimations:
         return logo
     
     #pressure
-    def menu_pressure():
+    def menu_pressure(self):
         logo = [
         O, B, B, B, B, B, O, O,
         O, B, O, O, O, O, B, O,
@@ -160,7 +160,7 @@ class SenseHATAnimations:
         return logo
     
     #humidity
-    def menu_humidity():
+    def menu_humidity(self):
         logo = [
         O, O, O, O, G, O, O, O,
         O, O, O, O, G, O, O, O,
@@ -174,7 +174,7 @@ class SenseHATAnimations:
         return logo
     
     #time
-    def menu_time():
+    def menu_time(self):
         logo = [
         O, O, O, O, O, O, O, O, 
         O, O, Y, Y, Y, O, O, O,
