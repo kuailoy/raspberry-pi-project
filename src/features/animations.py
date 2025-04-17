@@ -130,8 +130,9 @@ class SenseHATAnimations:
         O, O, O, O, O, O, O, O,
         ]
         return logo
-
-    def menu_temperature():
+    
+    #temperature
+    def menu_temperature(self):
         logo = [
         O, O, O, R, R, O, O, O,
         O, O, O, O, O, O, R, O,
@@ -143,8 +144,9 @@ class SenseHATAnimations:
         O, R, R, R, O, O, O, O
         ]
         return logo
-
-    def menu_pressure():
+    
+    #pressure
+    def menu_pressure(self):
         logo = [
         O, B, B, B, B, B, O, O,
         O, B, O, O, O, O, B, O,
@@ -156,7 +158,34 @@ class SenseHATAnimations:
         O, B, O, B, B, O, O, O
         ]
         return logo
-
+    
+    #humidity
+    def menu_humidity(self):
+        logo = [
+        O, O, O, O, G, O, O, O,
+        O, O, O, O, G, O, O, O,
+        O, O, O, G, O, G, O, O,
+        G, O, O, G, O, G, O, O,
+        G, O, G, O, O, O, G, O,
+        O, O, G, O, O, O, G, O,
+        O, O, G, O, O, O, G, O,
+        O, O, O, G, G, G, O, O
+        ]
+        return logo
+    
+    #time
+    def menu_time(self):
+        logo = [
+        O, O, O, O, O, O, O, O, 
+        O, O, Y, Y, Y, O, O, O,
+        O, Y, O, Y, O, Y, O, O,
+        Y, O, O, Y, O, O, Y, Y,
+        Y, O, O, Y, Y, O, Y, Y,
+        Y, O, O, O, O, O, Y, O,
+        O, Y, O, O, O, Y, O, O,
+        O, O ,Y, Y, Y, O, O, O
+        ]
+        return logo
 
     def question_mark(self):
         O = [0, 0, 0]                                                                   # BLACK
