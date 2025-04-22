@@ -1,5 +1,6 @@
 from sense_hat import SenseHat, ACTION_PRESSED, ACTION_HELD, ACTION_RELEASED
 from datetime import datetime
+from features.animations import SenseHATAnimations
 
 #CONFIG
 Scroll = float(0.05)                                                            # Text Scroll speed
@@ -31,8 +32,9 @@ styles = [
 ]
 
 class Action:
-    def __init__(self, sense: SenseHat):
+    def __init__(self, sense: SenseHat, animation: SenseHATAnimations):
         self.sense = sense
+        self.animation = animation
 
     def get_system_time(self):
         return datetime.now().strftime('%H:%M')
@@ -59,4 +61,8 @@ class Action:
     def pushed_right(self, event):
         if event.action != ACTION_RELEASED:
             humidity = self.sense.get_humidity()
-            self.sense.show_message(f"{humidity:.1f}",  text_colour=styles[3]["text_colour"], back_colour=styles[3]["bg_colour"], scroll_speed=Scroll)
+            self.sense.show_message(f"{humidity:.1f}%",  text_colour=styles[3]["text_colour"], back_colour=styles[3]["bg_colour"], scroll_speed=Scroll)
+
+    def refresh(self):
+        self.sense.clear()
+        self.animation.question_mark()
