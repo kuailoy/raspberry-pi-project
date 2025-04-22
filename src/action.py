@@ -44,7 +44,10 @@ class Action:
             temperature = self.sense.get_temperature() - 13
             # temperature = self.sense.get_temperature_from_humidity()
             # temperature = self.sense.get_temperature_from_pressure()
-
+            if temperature >= 10:
+                self.animation.shifting("images/temperature_high_1.png","images/temperature_high_2.png")
+            else:
+                self.animation.shifting("images/temperature_low_1.png","images/temperature_low_2.png")
             self.sense.show_message(f"{temperature:.1f}", text_colour=styles[0]["text_colour"], back_colour=styles[0]["bg_colour"], scroll_speed=Scroll)
 
 
@@ -56,11 +59,20 @@ class Action:
 
     def pushed_left(self, event):
         if event.action != ACTION_RELEASED:
+            hour = int(self.get_system_time) // 100 
+            if hour >= 6 and hour <= 17:
+                self.animation.shifting("images/time_day_1.png","images/time_day_2.png")
+            else:
+                self.animation.shifting("images/time_night_1.png","images/time_night_2.png")
             self.sense.show_message(self.get_system_time(),  text_colour=styles[2]["text_colour"], back_colour=styles[2]["bg_colour"], scroll_speed=Scroll)
 
     def pushed_right(self, event):
         if event.action != ACTION_RELEASED:
             humidity = self.sense.get_humidity()
+            if humidity >= 50:
+                self.animation.shifting("images/humidity_wet_1.png","images/humidity_wet_2.png")
+            else:
+                self.animation.shifting("images/humidity_dry_1.png","images/thumidity_dry_2.png")
             self.sense.show_message(f"{humidity:.1f}%",  text_colour=styles[3]["text_colour"], back_colour=styles[3]["bg_colour"], scroll_speed=Scroll)
 
     def refresh(self):
