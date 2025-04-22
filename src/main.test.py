@@ -46,15 +46,15 @@ try:
             case "up":
                 print('up')
                 action.pushed_up()
-                sleep(0.2)
+                # sleep(0.2)
             case "down":
                 print('down')
                 action.pushed_down()
-                sleep(0.2)
+                # sleep(0.2)
             case "left":
                 print('left')
                 action.pushed_left()
-                sleep(0.2)
+                # sleep(0.2)
 
             case "right":
                 print('right')
@@ -72,7 +72,7 @@ try:
         #     sense.clear()
         #     print("level")
 
-        # time.sleep(0.1)
+        sleep(0.1)
 
 except KeyboardInterrupt:
     sense.clear()
