@@ -265,3 +265,17 @@ class SenseHATAnimations:
             sleep(0.3)
             self.sense.clear()
             sleep(0.3)
+
+    def shifting(self, image_1, image_2):
+        self.sense.load_image(image_1)
+        sleep(0.25)
+        self.sense.clear()
+        self.sense.load_image(image_2)
+        sleep(0.25)
+        self.sense.clear()
+        self.sense.load_image(image_1)
+        sleep(0.25)
+        self.sense.clear()
+        self.sense.load_image(image_2)
+        sleep(0.25)
+        self.sense.clear()
