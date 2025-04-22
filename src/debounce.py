@@ -1,31 +1,45 @@
-import time
-from threading import Timer
-from functools import wraps
-from typing import Callable, Any
+# debounce.py
+from time import time
 
-def debounce(delay: float):
-    """
-    Simple debounce decorator that delays function execution.
+class Debouncer:
+    def __init__(self, delay, immediate=False):
+        """
+        delay: 防抖延迟时间(秒)
+        immediate: 是否立即响应第一次触发
+        """
+        self.delay = delay
+        self.last_call = 0
+        self.last_value = None
+        self.immediate = immediate
+        self.pending = None
 
-    Args:
-        delay (float): Delay time in seconds before executing the function
-                      after the last invocation.
-    """
-    def decorator(func: Callable) -> Callable:
-        timer = None
+    def __call__(self, func):
+        def wrapped(*args, **kwargs):
+            current_time = time()
 
-        @wraps(func)
-        def wrapped(*args, **kwargs) -> None:
-            nonlocal timer
-            if timer is not None:
-                timer.cancel()
+            # 立即执行第一次调用
+            if self.immediate and self.last_call == 0:
+                self.last_call = current_time
+                self.last_value = func(*args, **kwargs)
+                return self.last_value
 
-            def execute():
-                func(*args, **kwargs)
+            # 取消前一个待执行调用
+            if self.pending is not None:
+                self.pending = None
 
-            timer = Timer(delay, execute)
-            timer.start()
+            # 记录最新值并设置执行计划
+            new_value = func(*args, **kwargs)
+            elapsed = current_time - self.last_call
 
+            if elapsed >= self.delay:
+                self.last_call = current_time
+                self.last_value = new_value
+                return new_value
+            else:
+                # 设置延迟执行
+                self.pending = new_value
+                return self.last_value
         return wrapped
 
-    return decorator
+def debounce(delay, immediate=False):
+    return Debouncer(delay, immediate)
