@@ -220,7 +220,7 @@ class SenseHATAnimations:
             [0, 255, 183], [0, 217, 255], [0, 109, 255], [0, 0, 255], [110, 0, 255], [218, 0, 255], [255, 0, 183], [255, 0, 74]
         ]
 
-        msleep = lambda x: time.sleep(x / 1000.0)
+        msleep = lambda x: sleep(x / 1000.0)
 
 
         def next_colour(pix):
@@ -256,9 +256,10 @@ class SenseHATAnimations:
 
             self.sense.set_pixels(pixels)
             msleep(2)
+            break
 
-    def loading(self):
-        for i in range(5):
+    def switching_mode(self):
+        for i in range(3):
             self.sense.set_pixels(self.raspi_logo())
             sleep(0.3)
             self.sense.clear()
@@ -269,15 +270,12 @@ class SenseHATAnimations:
             sleep(0.3)
 
     def shifting(self, image_1, image_2):
-        self.sense.load_image(image_1)
-        sleep(0.25)
-        self.sense.clear()
-        self.sense.load_image(image_2)
-        sleep(0.25)
-        self.sense.clear()
-        self.sense.load_image(image_1)
-        sleep(0.25)
-        self.sense.clear()
-        self.sense.load_image(image_2)
-        sleep(0.25)
-        self.sense.clear()
+        for i in range(5):
+            self.sense.load_image(image_1)
+            sleep(0.25)
+            self.sense.load_image(image_2)
+            sleep(0.25)
+        # self.sense.load_image(image_1)
+        # sleep(0.25)
+        # self.sense.load_image(image_2)
+        # sleep(0.25)
