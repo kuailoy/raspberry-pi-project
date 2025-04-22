@@ -1,0 +1,71 @@
+from sense_hat import SenseHat, ACTION_PRESSED, ACTION_HELD, ACTION_RELEASED
+from datetime import datetime
+from features.animations import SenseHATAnimations
+
+#CONFIG
+Scroll = float(0.05)                                                            # Text Scroll speed
+X = [100, 100, 100]                                                             # WHITE
+O = [0, 0, 0]                                                                   # BLACK
+R = [100, 0, 0]                                                                 # RED
+B = [0, 0, 100]                                                                 # BlUE
+G = [0, 100, 0]                                                                 # GREEN
+x = 3                                                                           # JOY-STICK X-Axis
+y = 3                                                                           # JOY-STICK Y-Axis
+
+styles = [
+    {
+        "text_colour":  [80, 130, 210],
+        "bg_colour": [20, 35, 50]
+    },
+    {
+        "text_colour":  [100, 180, 120],
+        "bg_colour": [25, 45, 30]
+    },
+    {
+        "text_colour":  [220, 150, 80],
+        "bg_colour": [50, 30, 15]
+    },
+    {
+        "text_colour":  [170, 110, 200],
+        "bg_colour": [40, 20, 50]
+    }
+]
+
+class Action:
+    def __init__(self, sense: SenseHat, animation: SenseHATAnimations):
+        self.sense = sense
+        self.animation = animation
+
+    def get_system_time(self):
+        return datetime.now().strftime('%H:%M')
+
+    def pushed_up(self, event):
+        print("push uup")
+        # self.sense.clear()
+        if event.action != ACTION_RELEASED:
+            temperature = self.sense.get_temperature() - 13
+            # temperature = self.sense.get_temperature_from_humidity()
+            # temperature = self.sense.get_temperature_from_pressure()
+
+            self.sense.show_message(f"{temperature:.1f}", text_colour=styles[0]["text_colour"], back_colour=styles[0]["bg_colour"], scroll_speed=Scroll)
+
+
+    def pushed_down(self, event):
+        print(f"joystick action: {event.action}")
+        if event.action != ACTION_RELEASED:
+            pressure = int(self.sense.get_pressure())
+            self.sense.show_message(f"{pressure}", text_colour=styles[1]["text_colour"], back_colour=styles[1]["bg_colour"], scroll_speed=Scroll)
+
+
+    def pushed_left(self, event):
+        if event.action != ACTION_RELEASED:
+            self.sense.show_message(self.get_system_time(),  text_colour=styles[2]["text_colour"], back_colour=styles[2]["bg_colour"], scroll_speed=Scroll)
+
+    def pushed_right(self, event):
+        if event.action != ACTION_RELEASED:
+            humidity = self.sense.get_humidity()
+            self.sense.show_message(f"{humidity:.1f}%",  text_colour=styles[3]["text_colour"], back_colour=styles[3]["bg_colour"], scroll_speed=Scroll)
+
+    def refresh(self):
+        self.sense.clear()
+        self.animation.question_mark()
