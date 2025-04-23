@@ -17,7 +17,7 @@ def shake():
     globals.text_mode = not globals.text_mode
     print(f'text_mode: {globals.text_mode}')
     animations.switching_mode()
-    sense.clear()
+    joystick.reset()
 
 try:
     # regist joystick evnet
@@ -30,7 +30,8 @@ try:
         acceleration_register(sense, shake)
 
 
-
 except KeyboardInterrupt:
-    sense.clear()
+    # sense.clear()
+    # print('global except')
+    joystick.reset()
     print("Program stopped by user.")

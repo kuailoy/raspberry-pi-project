@@ -1,5 +1,6 @@
 from time import sleep, time
 from sense_hat import SenseHat
+import globals
 
 s = SenseHat()
 s.low_light = True
@@ -255,8 +256,129 @@ class SenseHATAnimations:
                 next_colour(pix)
 
             self.sense.set_pixels(pixels)
-            msleep(2)
-            break
+            msleep(5)
+
+    def sunshine(self):
+        # Colors
+        R = (255, 80, 0)        # Red-orange (sun)
+        O = (255, 140, 0)       # Orange (glow)
+        D = (200, 100, 0)       # Dark orange (outer glow)
+        B = (135, 206, 235)     # Sky blue
+
+        # Frame 1: calm center sun
+        frame1 = [
+            B, B, B, B, B, B, B, B,
+            B, B, B, O, O, B, B, B,
+            B, B, O, R, R, O, B, B,
+            B, O, R, R, R, R, O, B,
+            B, O, R, R, R, R, O, B,
+            B, B, O, R, R, O, B, B,
+            B, B, B, O, O, B, B, B,
+            B, B, B, B, B, B, B, B
+        ]
+
+        # Frame 2: outer glow spreads gently
+        frame2 = [
+            B, B, B, D, D, B, B, B,
+            B, B, O, O, O, O, B, B,
+            B, O, O, R, R, O, O, B,
+            D, O, R, R, R, R, O, D,
+            D, O, R, R, R, R, O, D,
+            B, O, O, R, R, O, O, B,
+            B, B, O, O, O, O, B, B,
+            B, B, B, D, D, B, B, B
+        ]
+
+        # Frame 3: strongest pulse
+        frame3 = [
+            B, B, D, B, B, D, B, B,
+            D, O, O, O, O, O, O, D,
+            B, O, O, R, R, O, O, B,
+            O, O, R, R, R, R, O, O,
+            O, O, R, R, R, R, O, O,
+            B, O, O, R, R, O, O, B,
+            D, O, O, O, O, O, O, D,
+            B, B, D, B, B, D, B, B
+        ]
+
+        # Frame 4: glow retracts slightly
+        frame4 = [
+            B, B, B, D, D, B, B, B,
+            B, B, O, O, O, O, B, B,
+            B, O, O, R, R, O, O, B,
+            D, O, R, R, R, R, O, D,
+            D, O, R, R, R, R, O, D,
+            B, O, O, R, R, O, O, B,
+            B, B, O, O, O, O, B, B,
+            B, B, B, D, D, B, B, B
+        ]
+
+        frames = [frame1, frame2, frame3, frame4]
+
+
+        for i in range(3):
+            for frame in frames:
+                self.sense.set_pixels(frame)
+                sleep(0.3)
+
+    def sunshine1(self):
+        # 10种渐变色（两字母命名）
+        BL = (  0,   0,   0)  # 背景黑
+        DR = ( 40,   0,   0)  # 暗红
+        CR = (120,   0,   0)  # 焦红
+        RO = (200,  40,   0)  # 红橙
+        OR = (255,  80,   0)  # 橙
+        LO = (255, 120,   0)  # 亮橙
+        YO = (255, 160,  20)  # 黄橙
+        YE = (255, 200,  50)  # 黄
+        LY = (255, 220,  80)  # 亮黄
+        BY = (255, 255, 100)  # 炽黄
+
+        # 太阳动画10帧（首尾连贯循环）
+        frames = [
+            # 帧0: 最小核心
+            [BL,BL,BL,BL,BL,BL,BL,BL, BL,BL,BL,BL,BL,BL,BL,BL, BL,BL,BL,CR,CR,BL,BL,BL, BL,BL,CR,YO,YO,CR,BL,BL,
+            BL,BL,CR,YO,YO,CR,BL,BL, BL,BL,BL,CR,CR,BL,BL,BL, BL,BL,BL,BL,BL,BL,BL,BL, BL,BL,BL,BL,BL,BL,BL,BL],
+
+            # 帧1: 微扩
+            [BL,BL,BL,CR,CR,BL,BL,BL, BL,CR,CR,RO,RO,CR,CR,BL, CR,RO,RO,YO,YO,RO,RO,CR, CR,RO,YO,LY,LY,YO,RO,CR,
+            CR,RO,YO,LY,LY,YO,RO,CR, CR,RO,RO,YO,YO,RO,RO,CR, BL,CR,CR,RO,RO,CR,CR,BL, BL,BL,BL,CR,CR,BL,BL,BL],
+
+            # 帧2: 橙光扩散
+            [CR,CR,RO,OR,OR,RO,CR,CR, CR,OR,OR,LO,LO,OR,OR,CR, RO,LO,LO,YE,YE,LO,LO,RO, RO,LO,YE,BY,BY,YE,LO,RO,
+            RO,LO,YE,BY,BY,YE,LO,RO, RO,LO,LO,YE,YE,LO,LO,RO, CR,OR,OR,LO,LO,OR,OR,CR, CR,CR,RO,OR,OR,RO,CR,CR],
+
+            # 帧3: 黄光加强
+            [OR,OR,LO,YO,YO,LO,OR,OR, LO,YO,YO,LY,LY,YO,YO,LO, YO,LY,LY,BY,BY,LY,LY,YO, YO,LY,BY,BY,BY,BY,LY,YO,
+            YO,LY,BY,BY,BY,BY,LY,YO, YO,LY,LY,BY,BY,LY,LY,YO, LO,YO,YO,LY,LY,YO,YO,LO, OR,OR,LO,YO,YO,LO,OR,OR],
+
+            # 帧4: 最大光晕
+            [LO,LO,YO,LY,LY,YO,LO,LO, YO,LY,LY,BY,BY,LY,LY,YO, LY,BY,BY,BY,BY,BY,BY,LY, LY,BY,BY,BY,BY,BY,BY,LY,
+            LY,BY,BY,BY,BY,BY,BY,LY, LY,BY,BY,BY,BY,BY,BY,LY, YO,LY,LY,BY,BY,LY,LY,YO, LO,LO,YO,LY,LY,YO,LO,LO],
+
+            # 帧5-9: 逆向收缩（与帧4-0对称）
+            # 帧5（同帧3逆向）
+            [OR,OR,LO,YO,YO,LO,OR,OR, LO,YO,YO,LY,LY,YO,YO,LO, YO,LY,LY,BY,BY,LY,LY,YO, YO,LY,BY,BY,BY,BY,LY,YO,
+            YO,LY,BY,BY,BY,BY,LY,YO, YO,LY,LY,BY,BY,LY,LY,YO, LO,YO,YO,LY,LY,YO,YO,LO, OR,OR,LO,YO,YO,LO,OR,OR],
+
+            # 帧6（同帧2逆向）
+            [CR,CR,RO,OR,OR,RO,CR,CR, CR,OR,OR,LO,LO,OR,OR,CR, RO,LO,LO,YE,YE,LO,LO,RO, RO,LO,YE,BY,BY,YE,LO,RO,
+            RO,LO,YE,BY,BY,YE,LO,RO, RO,LO,LO,YE,YE,LO,LO,RO, CR,OR,OR,LO,LO,OR,OR,CR, CR,CR,RO,OR,OR,RO,CR,CR],
+
+            # 帧7（同帧1逆向）
+            [BL,BL,BL,CR,CR,BL,BL,BL, BL,CR,CR,RO,RO,CR,CR,BL, CR,RO,RO,YO,YO,RO,RO,CR, CR,RO,YO,LY,LY,YO,RO,CR,
+            CR,RO,YO,LY,LY,YO,RO,CR, CR,RO,RO,YO,YO,RO,RO,CR, BL,CR,CR,RO,RO,CR,CR,BL, BL,BL,BL,CR,CR,BL,BL,BL],
+
+            # 帧8（过渡到初始）
+            [BL,BL,BL,BL,BL,BL,BL,BL, BL,BL,BL,DR,DR,BL,BL,BL, BL,DR,DR,YO,YO,DR,DR,BL, BL,DR,YO,LY,LY,YO,DR,BL,
+            BL,DR,YO,LY,LY,YO,DR,BL, BL,DR,DR,YO,YO,DR,DR,BL, BL,BL,BL,DR,DR,BL,BL,BL, BL,BL,BL,BL,BL,BL,BL,BL],
+        ]
+
+        for i in range(3):
+            for frame in frames:
+                self.sense.set_pixels(frame)
+                sleep(0.3)
+
 
     def switching_mode(self):
         for i in range(3):
@@ -264,10 +386,10 @@ class SenseHATAnimations:
             sleep(0.3)
             self.sense.clear()
             sleep(0.3)
-            self.sense.set_pixels(self.heart())
-            sleep(0.3)
-            self.sense.clear()
-            sleep(0.3)
+            # self.sense.set_pixels(self.heart())
+            # sleep(0.3)
+            # self.sense.clear()
+            # sleep(0.3)
 
     def shifting(self, image_1, image_2):
         for i in range(5):
