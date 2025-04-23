@@ -160,7 +160,7 @@ class Joystick:
         self.sense.stick.direction_left = self.joystick_left
         self.sense.stick.direction_up = self.joystick_up
         self.sense.stick.direction_down = self.joystick_down
-        # self.sense.stick.direction_middle = self.joystick_middle
+        self.sense.stick.direction_middle = self.joystick_middle
 
         self.reset()
 

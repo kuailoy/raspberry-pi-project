@@ -251,12 +251,25 @@ class SenseHATAnimations:
             pix[1] = g
             pix[2] = b
 
+        quit = False
         while True:
             for pix in pixels:
                 next_colour(pix)
 
             self.sense.set_pixels(pixels)
+            if quit:
+                # Check for joystick press
+                break
+            # Check for joystick press
+            for event in self.sense.stick.get_events():
+                if event.action == 'pressed':
+                    quit=True
+                    self.sense.clear()
+
+                    # raise KeyboardInterrupt
             msleep(5)
+
+
 
     def sunshine(self):
         # Colors
