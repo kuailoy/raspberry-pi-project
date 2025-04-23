@@ -1,4 +1,4 @@
-from sense_hat import SenseHat, ACTION_RELEASED
+from sense_hat import SenseHat, ACTION_HELD, ACTION_RELEASED
 from features.animations import SenseHATAnimations
 import os
 import globals
@@ -88,13 +88,16 @@ class Joystick:
                 self.sense.show_message(self.get_system_time(),  text_colour=styles[2]["text_colour"], back_colour=styles[2]["bg_colour"], scroll_speed=Scroll)
             else:
                 if hour >= 6 and hour <= 17:
-                    image_path1 = get_path("time_day_1.png")
-                    image_path2 = get_path("time_day_2.png")
+                    self.animation.sunshine1()
+                    # image_path1 = get_path("time_day_1.png")
+                    # image_path2 = get_path("time_day_2.png")
+                    # self.animation.shifting(image_path1, image_path2)
+
                 else:
                     image_path1 = get_path("time_night_1.png")
                     image_path2 = get_path("time_night_2.png")
 
-                self.animation.shifting(image_path1, image_path2)
+                    self.animation.shifting(image_path1, image_path2)
             self.reset()
 
     def joystick_up(self, event):
@@ -145,9 +148,12 @@ class Joystick:
     # Joystick moved MIDDLE (pushed). Shutdown
     #
     def joystick_middle(self, event):
-        if event.action != ACTION_RELEASED:
-            self.sense.show_message("Shutting")
-            os.system("sudo shutdown now")
+        if event.action == ACTION_HELD:
+            self.animation.rainbow()
+        else:
+            pass
+            # self.sense.show_message("Shutting")
+            # os.system("sudo shutdown now")
 
     def register(self):
         self.sense.stick.direction_right = self.joystick_right
